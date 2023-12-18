@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Form</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </head>
+
+  <body>
+    <div id="ebayLogo">
+      <a href="https://www.ebay.com/" target="_blank">
+        <!-- <img
+          src="{{ url_for('static', filename='images/ebayLogo.png') }}" 
+          alt="eBay Logo"
+        > -->
+        <!-- <img
+        src="static/images/ebayLogo.png" 
+        alt="eBay Logo"
+        > -->
+        <img
+          src="https://csci571.com/hw/hw6/images/eBayLogo.png" 
+          alt="eBay Logo"
+        >
+      </a>
+      <span id="logoText">Shopping</span>
+    </div>
+    <form id="searchForm" onsubmit="return  validateFormAndSendData(event)">
+      <table>
+        <tr>
+          <td>
+            <label for="searchKeyword"
+              ><strong>Keywords<span id="keywordstar">*</span>:</strong></label
+            >
+            <input type="text" id="searchKeyword" name="keyword" required />
+            <span id="keywordErrorMsg" class="error-message"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label><strong>Price Range:</strong></label>
+            <label for="minPrice">From </label>
+            <input type="number" id="minPrice" name="minPrice" step="0.1" />
+            <label for="maxPrice">to </label>
+            <input type="number" id="maxPrice" name="maxPrice" step="0.1" />
+            <span id="priceErrorMsg" class="error-message"></span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label><strong>Condition:</strong></label>
+            <input
+              type="checkbox"
+              id="conditionNew"
+              name="condition"
+              value="1000"
+            />
+            <label for="conditionNew">New</label>
+            <input
+              type="checkbox"
+              id="conditionUsed"
+              name="condition"
+              value="3000"
+            />
+            <label for="conditionUsed">Used</label>
+            <!-- Assuming we keep all conditions -->
+            <input
+              type="checkbox"
+              id="conditionVeryGood"
+              name="condition"
+              value="4000"
+            />
+            <label for="conditionVeryGood">Very Good</label>
+            <input
+              type="checkbox"
+              id="conditionGood"
+              name="condition"
+              value="5000"
+            />
+            <label for="conditionGood">Good</label>
+            <input
+              type="checkbox"
+              id="conditionAcceptable"
+              name="condition"
+              value="6000"
+            />
+            <label for="conditionAcceptable">Acceptable</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label><strong>Seller Options:</strong></label>
+            <input
+              type="checkbox"
+              id="returnsAccepted"
+              name="sellerOption"
+              value="Return Accepted"
+            />
+            <label for="returnsAccepted">Return Accepted</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label><strong>Shipping:</strong></label>
+            <input
+              type="checkbox"
+              id="freeShipping"
+              name="shippingOption"
+              value="Free"
+            />
+            <label for="freeShipping">Free</label>
+            <input
+              type="checkbox"
+              id="expeditedShipping"
+              name="shippingOption"
+              value="Expedited"
+            />
+            <label for="expeditedShipping">Expedited</label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label for="sortingOption"><strong>Sort By:</strong></label>
+            <select id="sortingOption" name="sortOption">
+              <option value="BestMatch">Best Match</option>
+              <option value="CurrentPriceHighest">Price: highest first</option>
+              <option value="PricePlusShippingHighest">
+                Price + Shipping: highest first
+              </option>
+              <option value="PricePlusShippingLowest">
+                Price + Shipping: lowest first
+              </option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <input type="reset" value="Clear" onclick="clearForm()"/>
+            <input type="submit" value="Search" />
+            <!-- <input type="reset" value="Clear" onclick="clearForm()" />
+            <input type="submit" value="Search" onclick="clearForm()" /> -->
+          </td>
+        </tr>
+      </table>
+    </form>
+    <div id="noResults">
+      <strong>No Results Found</strong>
+    </div>
+    <div class="cardResult" id="cardResult">
+      <div id="boxmodel">
+        <div id="cardResultHeader">
+          <strong><span id="totalResults"></span> Results found for <i><span id="displayKeyword"> </span></i></strong>
+        </div>
+        <hr id="line">
+        <div id="result"></div>
+  
+
+        </hr>
+        <div class="card" id="lesscard"></div>
+      </div>
+      <div class="card" id="moreCards"></div>
+      <input class="center-button" type="button" id="showmore" value="Show More" onclick="showMoreFunc()">
+      <input class="center-button" type="button" id="showless" value="Show Less" onclick="showLessFunc()">
+    </div>
+    <div class="itemDetails" id="itemDetails">
+      <div id="itemDetailsHeader">
+        <strong> Item Details</strong>
+      </div>
+      <input class="center-button" type="button" id="goBack" value="Back to search Result" onclick="goBack()">
+      <table id="data-table">
+        <tbody>
+            <!-- Rows will be populated by JS -->
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

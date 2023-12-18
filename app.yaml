@@ -1,0 +1,29 @@
+runtime: python311 # specify the appropriate python version you are using
+
+handlers:
+  # This configures Google App Engine to serve the files in the app's static
+  # directory.
+  - url: /static
+    static_dir: static
+
+    # 配置Google App Engine用于提供app的static/images目录中的文件
+  - url: /static/images
+    static_dir: static/images
+
+    # This handler routes all requests not caught above to your main app. It is
+    # required when static routes are defined, but can be omitted (along with
+    # the entire handlers section) when there are no static files defined.
+  - url: /.*
+    script: auto
+# runtime: python311
+
+# handlers:
+
+# - url: /static
+#   static_dir: static
+
+# - url: /static/images
+#   static_dir: static/images
+
+# - url: /.*
+#   script: auto
